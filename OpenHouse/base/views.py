@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http.response import HttpResponse
+
+# from django.http.response import HttpResponse
 
 # Create your views here.
 """Rell added logic from tutorial, created a new function call home taking in the request object, returning 
@@ -7,8 +8,9 @@ from django.http.response import HttpResponse
 
 
 def home(request):
-    return HttpResponse('Home Page')
+    # return HttpResponse('Home Page')
+    return render(request, 'Home.html')
 
 
 def room(request):
-    return HttpResponse('Room')
+    return render(request, 'Room.html')
