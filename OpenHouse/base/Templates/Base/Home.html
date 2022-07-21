@@ -1,0 +1,17 @@
+
+{% extends 'MainTemplate.html' %}
+
+{% block content %}
+<h1>Home Template</h1>
+
+<!--Adding in loop for the context passed variable -->
+<div>
+    {% for room in rooms %}
+    <div>
+        {{room.id}} --- <a href="{% url 'user_room' room.id %}">{{room.name}}</a>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

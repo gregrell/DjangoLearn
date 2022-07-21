@@ -7,6 +7,6 @@ from . import views #the . notation here indicates we are importing from the sam
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('room/', views.room, name='room')
+    path('room/<str:pk>/', views.room, name="user_room")
 
 ]
