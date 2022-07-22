@@ -13,6 +13,7 @@ rooms = [
 
 ]
 
+
 def home(request):
     # return HttpResponse('Home Page')
     context = {'rooms': rooms}
@@ -25,7 +26,5 @@ def room(request, pk):
         if i['id'] == int(pk):
             room = i
     context = {'room': room}
-    #print(context.get('room').get('name')) """ This line illustrates how to get values from within a dictionary"""
-
-
+    # print(context.get('room').get('name')) """ This line illustrates how to get values from within a dictionary"""
     return render(request, 'Base/Room.html', context)
