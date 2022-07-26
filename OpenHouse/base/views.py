@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .models import Room
+from .forms import RoomForm
+
 
 # from django.http.response import HttpResponse
 
@@ -22,3 +24,9 @@ def room(request, pk):
     context = {'room': room}
     # print(context.get('room').get('name')) """ This line illustrates how to get values from within a dictionary"""
     return render(request, 'Base/Room.html', context)
+
+
+def createRoom(request):
+    form = RoomForm()
+    context = {'form': form}
+    return render(request, 'base/room_form.html', context)
