@@ -26,6 +26,16 @@ class Room(models.Model):
     # auto_now will take a timestampe every time, and auto_now_add will only do a timestamp when the instance is
     # created ie. only the creation timestamp
 
+    class Meta:
+        # Meta classes are used to add additional parameters to a django class. They have predefined attribute values
+        ordering = ['-updated', '-created']
+        # db_table = 'some other table name other than the model name'
+        # app_label = 'my app name, to override the app name'
+        # base_manager_name = 'something' is the name to use for the base manager attribute ie. object.get_all()
+        # now becomes something.get_all()
+        # get_latest_by = 'some field' will specify how to get the latest by the object.latest() and earliest()
+        # methods
+
     def __str__(self):
         return self.name
 

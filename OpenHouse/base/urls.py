@@ -8,6 +8,7 @@ from . import views  # the . notation here indicates we are importing from the s
 urlpatterns = [
     path('', views.home, name='home'),
     path('room/<str:pk>/', views.room, name="user_room"),
-    path('create-room/', views.createRoom, name="create-room")
+    path('create-room/', views.createRoom, name="create-room"),
+    path('update-room/<str:pk>/', views.updateRoom, name="update-room")
 
 ]

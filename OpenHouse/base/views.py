@@ -12,8 +12,11 @@ from .forms import RoomForm
 
 def home(request):
     # return HttpResponse('Home Page')
-    rooms = Room.objects.all()  # This objects method is part of the models object which is a database manager that
-    # will return all
+    rooms = Room.objects.all()
+    # .order_by('-updated', '-created')
+    # This objects method is part of the models object
+    # which is a database manager that will return all. notice you can call multiple methods on the same object
+    # in the same line
     context = {'rooms': rooms}
     return render(request, 'Base/Home.html', context)
 
@@ -37,5 +40,18 @@ def createRoom(request):
             return redirect('home')
         else:
             print(form.errors)
+    context = {'form': form}
+    return render(request, 'base/room_form.html', context)
+
+
+def updateRoom(request, pk):
+    room = Room.objects.get(id=pk)
+    form = RoomForm(instance=room)
+    if request.method == 'POST':
+        form = RoomForm(request.POST, instance=room)
+        if form.is_valid():
+            form.save()
+
+        return redirect('home')
     context = {'form': form}
     return render(request, 'base/room_form.html', context)
