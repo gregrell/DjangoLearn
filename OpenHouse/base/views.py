@@ -55,3 +55,10 @@ def updateRoom(request, pk):
         return redirect('home')
     context = {'form': form}
     return render(request, 'base/room_form.html', context)
+
+
+def deleteRoom(request, pk):
+    room = Room.objects.get(id=pk)
+    room.delete()
+    return redirect('home')
+

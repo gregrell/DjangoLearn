@@ -13,6 +13,7 @@
 
         {{room.id}} --- <a href="{% url 'user_room' room.id %}">{{room.name}}</a>
         <a href="{% url 'update-room' room.id %}">Edit</a>
+        <a href="{% url 'delete-room' room.id %}">Delete</a>
         <small>{{room.topic.name}}</small>
         <hr>
     </div>
