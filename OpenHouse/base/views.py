@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from .models import Room
+from .models import Room, Topic
 from .forms import RoomForm
 
 # from django.http.response import HttpResponse
@@ -13,11 +13,12 @@ from .forms import RoomForm
 def home(request):
     # return HttpResponse('Home Page')
     rooms = Room.objects.all()
+    topics = Topic.objects.all()
     # .order_by('-updated', '-created')
     # This objects method is part of the models object
     # which is a database manager that will return all. notice you can call multiple methods on the same object
     # in the same line
-    context = {'rooms': rooms}
+    context = {'rooms': rooms, 'topics':topics}
     return render(request, 'Base/Home.html', context)
 
 
