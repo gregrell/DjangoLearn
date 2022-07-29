@@ -12,7 +12,12 @@ from .forms import RoomForm
 
 def home(request):
     # return HttpResponse('Home Page')
-    rooms = Room.objects.all()
+    q = request.GET.get('q') if request.GET.get('q') is not None else ''
+    rooms = Room.objects.filter(topic__name__icontains=q)
+
+    # the topic__name looks at the topic foreign key object within the
+    # room object, and then uses that topic object to query the name
+
     topics = Topic.objects.all()
     # .order_by('-updated', '-created')
     # This objects method is part of the models object
