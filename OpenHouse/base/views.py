@@ -10,6 +10,13 @@ from .forms import RoomForm
     an HTTP Response Object"""
 
 
+def loginPage(request):
+    context = {}
+    return render(request, 'base/login_register.html', context)
+
+
+
+
 def home(request):
     # return HttpResponse('Home Page')
     q = request.GET.get('q') if request.GET.get('q') is not None else ''
