@@ -36,6 +36,7 @@
         <h5>Rooms Available {{rooms_count}}</h5>
         <a href="{% url 'create-room' %}">Create Room</a>
         <div>
+
         {% for room in rooms %}
         <span>@{{room.host.first_name}}</span><!--the host field is set to the foreignkey User object, the username is an attribute in the class-->
 
