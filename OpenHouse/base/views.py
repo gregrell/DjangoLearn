@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-
+from django.db.models import Q
 from .models import Room, Topic
 from .forms import RoomForm
 
@@ -13,7 +13,13 @@ from .forms import RoomForm
 def home(request):
     # return HttpResponse('Home Page')
     q = request.GET.get('q') if request.GET.get('q') is not None else ''
-    rooms = Room.objects.filter(topic__name__icontains=q)
+    rooms = Room.objects.filter(
+        Q(topic__name__icontains=q) |
+        Q(name__icontains=q) |
+        Q(description__icontains=q)
+    )
+    rooms_count = rooms.count()
+
 
     # the topic__name looks at the topic foreign key object within the
     # room object, and then uses that topic object to query the name
@@ -23,7 +29,7 @@ def home(request):
     # This objects method is part of the models object
     # which is a database manager that will return all. notice you can call multiple methods on the same object
     # in the same line
-    context = {'rooms': rooms, 'topics':topics}
+    context = {'rooms': rooms, 'topics': topics, 'rooms_count': rooms_count}
     return render(request, 'Base/Home.html', context)
 
 
