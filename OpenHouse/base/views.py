@@ -15,6 +15,7 @@ from .forms import RoomForm
 
 
 def loginPage(request):
+    page='login'
     if request.user.is_authenticated:
         return redirect('home')
 
@@ -33,7 +34,12 @@ def loginPage(request):
         else:
             messages.error(request, "User or Password not found")
 
-    context = {}
+    context = {'page': page}
+    return render(request, 'base/login_register.html', context)
+
+def registerPage(request):
+    page = 'register'
+    context = {'page': page}
     return render(request, 'base/login_register.html', context)
 
 
