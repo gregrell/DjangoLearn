@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
+from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate, logout
+from django.contrib import messages
 from .models import Room, Topic
 from .forms import RoomForm
 
@@ -11,10 +14,29 @@ from .forms import RoomForm
 
 
 def loginPage(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        try:
+            user = User.objects.get(username=username)
+        except:
+            messages.error(request, "User not found")
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, "User or Password not found")
+
+
     context = {}
     return render(request, 'base/login_register.html', context)
 
 
+def logoutUser(request):
+    logout(request)
+    return redirect('home')
 
 
 def home(request):
@@ -26,7 +48,6 @@ def home(request):
         Q(description__icontains=q)
     )
     rooms_count = rooms.count()
-
 
     # the topic__name looks at the topic foreign key object within the
     # room object, and then uses that topic object to query the name
@@ -78,10 +99,8 @@ def updateRoom(request, pk):
 
 def deleteRoom(request, pk):
     room = Room.objects.get(id=pk)
-    if request.method=="POST":
+    if request.method == "POST":
         room.delete()
         return redirect('home')
-    context = {'obj':room}
-    return render(request,'base/Delete.html', context)
-
-
+    context = {'obj': room}
+    return render(request, 'base/Delete.html', context)
