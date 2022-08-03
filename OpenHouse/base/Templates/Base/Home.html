@@ -41,8 +41,12 @@
         <span>@{{room.host.first_name}}</span><!--the host field is set to the foreignkey User object, the username is an attribute in the class-->
 
         {{room.id}} --- <a href="{% url 'user_room' room.id %}">{{room.name}}</a>
+
+        {% if user == room.host  %}
         <a href="{% url 'update-room' room.id %}">Edit</a>
         <a href="{% url 'delete-room' room.id %}">Delete</a>
+        {% endif %}
+
         <small>{{room.topic.name}}</small>
         <hr>
         {% endfor %}
