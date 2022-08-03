@@ -30,7 +30,6 @@ def loginPage(request):
         else:
             messages.error(request, "User or Password not found")
 
-
     context = {}
     return render(request, 'base/login_register.html', context)
 
@@ -70,6 +69,7 @@ def room(request, pk):
     return render(request, 'Base/Room.html', context)
 
 
+@login_required(login_url='login')
 def createRoom(request):
     form = RoomForm()
     if request.method == 'POST':
@@ -85,6 +85,7 @@ def createRoom(request):
     return render(request, 'base/room_form.html', context)
 
 
+@login_required(login_url='login')
 def updateRoom(request, pk):
     room = Room.objects.get(id=pk)
     form = RoomForm(instance=room)
@@ -98,6 +99,7 @@ def updateRoom(request, pk):
     return render(request, 'base/room_form.html', context)
 
 
+@login_required(login_url='login')
 def deleteRoom(request, pk):
     room = Room.objects.get(id=pk)
     if request.method == "POST":
