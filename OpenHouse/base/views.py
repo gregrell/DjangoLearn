@@ -16,7 +16,7 @@ from .forms import RoomForm
 
 
 def loginPage(request):
-    page='login'
+    page = 'login'
     if request.user.is_authenticated:
         return redirect('home')
 
@@ -38,10 +38,11 @@ def loginPage(request):
     context = {'page': page}
     return render(request, 'base/login_register.html', context)
 
+
 def registerPage(request):
     page = 'register'
     form = UserCreationForm()
-    if request.method=='POST':
+    if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
@@ -87,9 +88,18 @@ def home(request):
 
 
 def room(request, pk):
-    room = None
     room = Room.objects.get(id=pk)
-    context = {'room': room}
+    messages = room.message_set.all().order_by('-created')  # This is the most important thing about django query
+    # sets. room doesn't even
+    # have a message object or attribute, but message has a room object that is of foreign key. Getting all the
+    # messages you access the _set of tht foreign key object. Stupid.
+    if(request.user.is_authenticated):
+        user_messages = request.user.message_set.all().order_by('-created')  # Here's an example of getting all user
+    else:
+        user_messages = None
+    # messages from foreign keys
+
+    context = {'room': room, 'room_messages': messages, 'user_messages': user_messages}
     # print(context.get('room').get('name')) """ This line illustrates how to get values from within a dictionary"""
     return render(request, 'Base/Room.html', context)
 
