@@ -41,7 +41,21 @@ def loginPage(request):
 def registerPage(request):
     page = 'register'
     form = UserCreationForm()
-    context = {'page': page, 'form':form}
+    if request.method=='POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            try:
+                user.save()
+                login(request, user)
+                return redirect('home')
+            except:
+                messages.error(request, "Could not save user")
+        else:
+            messages.error(request, "Problem Registering User")
+
+    context = {'page': page, 'form': form}
     return render(request, 'base/login_register.html', context)
 
 
