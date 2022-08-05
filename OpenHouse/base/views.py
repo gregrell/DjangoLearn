@@ -5,7 +5,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .models import Room, Topic
+from .models import Room, Topic, Message
 from .forms import RoomForm
 
 # from django.http.response import HttpResponse
@@ -93,6 +93,17 @@ def room(request, pk):
     # sets. room doesn't even
     # have a message object or attribute, but message has a room object that is of foreign key. Getting all the
     # messages you access the _set of tht foreign key object. Stupid.
+
+    if request.method=='POST':
+        messsage = Message.objects.create(
+            user=request.user,
+            room=room,
+            body=request.POST.get('body')
+        )
+        return redirect('user_room', pk=room.id)
+
+
+
     if(request.user.is_authenticated):
         user_messages = request.user.message_set.all().order_by('-created')  # Here's an example of getting all user
     else:
