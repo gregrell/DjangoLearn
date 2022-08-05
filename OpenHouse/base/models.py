@@ -19,7 +19,7 @@ class Room(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)  # the null input arguments allow the database to have a
     # blank value on creation, and on saving. It is set to False by default.
-    # participants =
+    participants = models.ManyToManyField(User, related_name='participants', blank=True)
     updated = models.DateTimeField(auto_now=True)  # Any time the save method is called, this will auto populate
     created = models.DateTimeField(auto_now_add=True)  # The difference between auto_now and auto_add_now is that
 

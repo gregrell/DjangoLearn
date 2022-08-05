@@ -93,6 +93,7 @@ def room(request, pk):
     # sets. room doesn't even
     # have a message object or attribute, but message has a room object that is of foreign key. Getting all the
     # messages you access the _set of tht foreign key object. Stupid.
+    participants = room.participants.all()
 
     if request.method=='POST':
         messsage = Message.objects.create(
@@ -100,6 +101,7 @@ def room(request, pk):
             room=room,
             body=request.POST.get('body')
         )
+        room.participants.add(request.user)
         return redirect('user_room', pk=room.id)
 
 
@@ -110,7 +112,7 @@ def room(request, pk):
         user_messages = None
     # messages from foreign keys
 
-    context = {'room': room, 'room_messages': messages, 'user_messages': user_messages}
+    context = {'room': room, 'room_messages': messages, 'user_messages': user_messages, 'participants': participants}
     # print(context.get('room').get('name')) """ This line illustrates how to get values from within a dictionary"""
     return render(request, 'Base/Room.html', context)
 
