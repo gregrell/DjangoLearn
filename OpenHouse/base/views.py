@@ -74,7 +74,12 @@ def home(request):
         Q(description__icontains=q)
     )
     rooms_count = rooms.count()
-    room_messages = Message.objects.all()[:15]
+    room_messages = Message.objects.filter(
+        Q(room__topic__name__icontains=q) |
+        Q(room__name__icontains=q) |
+        Q(user__username__icontains=q) |
+        Q(body__icontains=q)
+    )
 
     # the topic__name looks at the topic foreign key object within the
     # room object, and then uses that topic object to query the name
