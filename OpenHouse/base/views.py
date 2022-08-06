@@ -163,3 +163,6 @@ def deleteMessage(request, pk):
         return redirect('home')
     context = {'obj': message}
     return render(request, 'base/Delete.html', context)
+
+
+"""Adding activity feed"""
