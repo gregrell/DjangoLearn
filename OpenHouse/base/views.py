@@ -95,7 +95,7 @@ def room(request, pk):
     # messages you access the _set of tht foreign key object. Stupid.
     participants = room.participants.all()
 
-    if request.method=='POST':
+    if request.method == 'POST':
         messsage = Message.objects.create(
             user=request.user,
             room=room,
@@ -104,9 +104,7 @@ def room(request, pk):
         room.participants.add(request.user)
         return redirect('user_room', pk=room.id)
 
-
-
-    if(request.user.is_authenticated):
+    if request.user.is_authenticated:
         user_messages = request.user.message_set.all().order_by('-created')  # Here's an example of getting all user
     else:
         user_messages = None
@@ -154,4 +152,14 @@ def deleteRoom(request, pk):
         room.delete()
         return redirect('home')
     context = {'obj': room}
+    return render(request, 'base/Delete.html', context)
+
+
+@login_required(login_url='login')
+def deleteMessage(request, pk):
+    message = Message.objects.get(id=pk)
+    if request.method == "POST":
+        message.delete()
+        return redirect('home')
+    context = {'obj': message}
     return render(request, 'base/Delete.html', context)
