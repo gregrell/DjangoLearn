@@ -74,6 +74,7 @@ def home(request):
         Q(description__icontains=q)
     )
     rooms_count = rooms.count()
+    room_messages = Message.objects.all()[:15]
 
     # the topic__name looks at the topic foreign key object within the
     # room object, and then uses that topic object to query the name
@@ -83,7 +84,7 @@ def home(request):
     # This objects method is part of the models object
     # which is a database manager that will return all. notice you can call multiple methods on the same object
     # in the same line
-    context = {'rooms': rooms, 'topics': topics, 'rooms_count': rooms_count}
+    context = {'rooms': rooms, 'topics': topics, 'rooms_count': rooms_count, 'room_messages': room_messages}
     return render(request, 'Base/Home.html', context)
 
 
