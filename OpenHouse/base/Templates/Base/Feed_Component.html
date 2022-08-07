@@ -1,7 +1,7 @@
 <div>
 
     {% for room in rooms %}
-    <span>@{{room.host.first_name}}</span>
+    <a href="{% url 'user-profile' room.host.id %}">@{{room.host.first_name}}</a>
     <!--the host field is set to the foreignkey User object, the username is an attribute in the class-->
 
     {{room.id}} --- <a href="{% url 'user_room' room.id %}">{{room.name}}</a>

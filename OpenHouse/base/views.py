@@ -171,5 +171,13 @@ def deleteMessage(request, pk):
     return render(request, 'base/Delete.html', context)
 
 
+def userProfile(request, pk):
+    user = User.objects.get(id=pk)
+    rooms = user.room_set.all()
+    user_messages = user.message_set.all()
+    context = {'user': user, 'rooms': rooms, 'room_messages': user_messages}
+    return render(request, 'base/User_Profile.html', context)
+
+
 """Adding activity feed"""
 """Adding User Profile Editing"""
