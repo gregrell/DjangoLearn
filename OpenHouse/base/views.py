@@ -172,3 +172,4 @@ def deleteMessage(request, pk):
 
 
 """Adding activity feed"""
+"""Adding User Profile Editing"""
