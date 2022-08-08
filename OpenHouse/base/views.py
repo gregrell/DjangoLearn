@@ -128,8 +128,9 @@ def createRoom(request):
         form = RoomForm(request.POST)  # ALWAYS POPULATE YOUR form object with the post data
 
         if form.is_valid():
-            form.save()
-
+            room = form.save(commit=False)
+            room.host = request.user
+            room.save()
             return redirect('home')
         else:
             print(form.errors)
