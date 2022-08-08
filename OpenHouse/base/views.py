@@ -184,3 +184,4 @@ def userProfile(request, pk):
 """Adding activity feed"""
 """Adding User Profile Editing"""
 """Adding Static Files"""
+"""Theme installation begin"""
