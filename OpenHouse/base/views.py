@@ -109,7 +109,7 @@ def room(request, pk):
             body=request.POST.get('body')
         )
         room.participants.add(request.user)
-        return redirect('user_room', pk=room.id)
+        return redirect('room', pk=room.id)
 
     if request.user.is_authenticated:
         user_messages = request.user.message_set.all().order_by('-created')  # Here's an example of getting all user
@@ -136,7 +136,7 @@ def createRoom(request):
         else:
             print(form.errors)
     context = {'form': form}
-    return render(request, 'base/room_form.html', context)
+    return render(request, 'base/create-room.html', context)
 
 
 @login_required(login_url='login')

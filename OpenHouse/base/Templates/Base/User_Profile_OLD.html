@@ -1,0 +1,27 @@
+{% extends 'MainTemplate.html' %}
+
+{% block content %}
+<h> {{user.username}}</h>
+
+
+
+
+
+<div class="user-profile">
+    <div>
+        {% include 'base/Topics_Component.html' %}
+
+    </div>
+
+
+    <div>
+        {% include 'base/Feed_Component.html' %}
+    </div>
+
+
+    <div>
+        {% include 'base/Activity_Component.html' %}
+    </div>
+</div>
+
+{% endblock content %}
