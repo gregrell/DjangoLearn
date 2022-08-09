@@ -85,11 +85,12 @@ def home(request):
     # room object, and then uses that topic object to query the name
 
     topics = Topic.objects.all()
+    topics_count = topics.count()
     # .order_by('-updated', '-created')
     # This objects method is part of the models object
     # which is a database manager that will return all. notice you can call multiple methods on the same object
     # in the same line
-    context = {'rooms': rooms, 'topics': topics, 'rooms_count': rooms_count, 'room_messages': room_messages}
+    context = {'rooms': rooms, 'topics': topics, 'rooms_count': rooms_count, 'room_messages': room_messages, 'topics_count': topics_count}
     return render(request, 'Base/Home.html', context)
 
 
