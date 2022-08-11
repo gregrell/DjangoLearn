@@ -187,8 +187,8 @@ def userProfile(request, pk):
     context = {'user': user, 'rooms': rooms, 'room_messages': user_messages, 'topics': topics}
     return render(request, 'base/User_Profile.html', context)
 
+@login_required(login_url='login')
+def updateUser(request,pk):
+    context = {}
+    return render(request, 'base/update-user.html', context)
 
-"""Adding activity feed"""
-"""Adding User Profile Editing"""
-"""Adding Static Files"""
-"""Theme installation begin"""
