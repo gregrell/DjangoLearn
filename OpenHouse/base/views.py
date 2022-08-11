@@ -155,7 +155,7 @@ def updateRoom(request, pk):
         room.save()
         return redirect('home')
 
-    context = {'form': form}
+    context = {'form': form, 'room': room}
     return render(request, 'base/create-room.html', context)
 
 
