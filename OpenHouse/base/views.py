@@ -55,9 +55,10 @@ def registerPage(request):
                 messages.error(request, "Could not save user")
         else:
             messages.error(request, "Problem Registering User")
+            messages.error(request, form.errors)
 
     context = {'page': page, 'form': form}
-    return render(request, 'base/login_register.html', context)
+    return render(request, 'base/signup.html', context)
 
 
 def logoutUser(request):
@@ -166,7 +167,7 @@ def deleteRoom(request, pk):
         room.delete()
         return redirect('home')
     context = {'obj': room}
-    return render(request, 'base/Delete.html', context)
+    return render(request, 'base/delete.html', context)
 
 
 @login_required(login_url='login')
@@ -176,7 +177,7 @@ def deleteMessage(request, pk):
         message.delete()
         return redirect('home')
     context = {'obj': message}
-    return render(request, 'base/Delete.html', context)
+    return render(request, 'base/delete.html', context)
 
 
 def userProfile(request, pk):
