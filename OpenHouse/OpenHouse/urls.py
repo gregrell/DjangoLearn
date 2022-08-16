@@ -18,6 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('base.urls'))  # Includes the app folder searching for urls.py within the app
+    path('', include('base.urls')),  # Includes the app folder searching for urls.py within the app
+    path('api/', include('base.api.urls'))
 
 ]

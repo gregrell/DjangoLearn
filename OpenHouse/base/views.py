@@ -81,6 +81,7 @@ def home(request):
         Q(user__username__icontains=q) |
         Q(body__icontains=q)
     )
+    room_messages = room_messages[:15]
 
     # the topic__name looks at the topic foreign key object within the
     # room object, and then uses that topic object to query the name
