@@ -4,5 +4,7 @@ from . import views  # the . notation here indicates we are importing from the s
 
 urlpatterns = [
     path('', views.getRoutes),
+    path('rooms/', views.getRooms),
+    path('rooms/<str:pk>', views.getRoom)
 
 ]
