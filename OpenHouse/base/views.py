@@ -87,6 +87,7 @@ def home(request):
 
     topics = Topic.objects.all()
     topics_count = topics.count()
+    topics = topics[:5]
     # .order_by('-updated', '-created')
     # This objects method is part of the models object
     # which is a database manager that will return all. notice you can call multiple methods on the same object
@@ -203,3 +204,13 @@ def updateUser(request,pk):
 
     return render(request, 'base/update-user.html', context)
 
+def topics(request):
+    q = request.GET.get('q') if request.GET.get('q') is not None else ''
+    topics = Topic.objects.filter(name__icontains=q)
+    context = {'topics': topics}
+    return render(request, 'base/topics.html', context)
+
+def activities(request):
+    room_messages = Message.objects.all()
+    context = {'room_messages': room_messages}
+    return render(request, 'base/activity.html', context)
