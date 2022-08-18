@@ -25,7 +25,7 @@
 
                     <div class="form__group">
                         <label for="room_topic">Room Topic</label>
-                        <input required input="text" name="topic" value="{{room.topic.name}}" list="topic-list"/>
+                        <input required input="text" name="topic" value="{{room.topic.name}}" list="topic-list" autocomplete="off"/>
                         <datalist id="topic-list">
                             <select>
                                 {% for topic in topics %}
@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="form__group">
-                        <label for="room_name">Room Name</label>
+                        <label for="room_name" >Room Name</label>
                         {{form.name}}
                     </div>
 
